@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lig 4
 
-## Getting Started
+Lig 4 (Connect Four) feito com Next.js: jogue contra o computador (3 níveis) ou com um amigo no mesmo PC.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Front-end:** Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS 4
+- **Back-end:** Route Handler `POST /api/move` (vira função serverless no Vercel) com a IA em minimax + poda alfa-beta
+- **Regras compartilhadas:** `src/lib/game.ts` é usado tanto pelo front quanto pelo back
+
+```
+src/
+  app/page.tsx            página
+  app/api/move/route.ts   back-end: recebe o tabuleiro, devolve a coluna do computador
+  components/Game.tsx     tabuleiro, placar, modos
+  lib/game.ts             regras (queda da peça, vitória, empate)
+  lib/ai.ts               IA (minimax)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Rodar local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Abra http://localhost:3000. Atalhos: teclas 1–7 jogam na coluna, N começa nova partida.
 
-## Learn More
+## Deploy no Vercel
 
-To learn more about Next.js, take a look at the following resources:
+Suba o repositório no GitHub e importe em https://vercel.com/new (o Next.js é detectado sozinho, não precisa configurar nada). Ou, pela CLI:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npx vercel
+```
